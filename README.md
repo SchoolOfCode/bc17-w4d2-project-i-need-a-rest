@@ -1,1 +1,18 @@
-Feel free to delete this and start from scratch.
+Instructions on how to install and run the application 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
