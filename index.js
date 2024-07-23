@@ -20,7 +20,9 @@ app.get('/', (req, res) => {
 
 app.get('/activities', (req, res) => {
   res.status(200);
-	res.json(generateActivities(3));
+	res.json({
+		data: generateActivities(3)
+	});
 
 });
 app.listen(port, () => {
