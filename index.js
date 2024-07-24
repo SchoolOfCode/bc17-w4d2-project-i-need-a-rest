@@ -48,3 +48,15 @@ app.post("/activities", async (req, res) => {
     )
   }
 });
+
+
+
+app.put('/activities/:id',(req,res)=>{
+  if(req.params.id){
+    
+  }
+})
+
+
+
+
