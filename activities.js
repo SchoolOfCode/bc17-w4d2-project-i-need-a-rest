@@ -1,4 +1,5 @@
 import crypto from "crypto";
+import { saveDb, getDb } from "./database.js";
 
 const activity_types = ["running", "swimming", "jogging", "weightlifting", "walking"];
 
@@ -16,5 +17,11 @@ export function generateActivities(amount = 1) {
 		}
 
 		resolve(arr);
+	});
+}
+
+export function createNewActivity(activityType = "jog", activityDuration = "30") {
+	return new Promise((resolve) => {
+
 	});
 }
