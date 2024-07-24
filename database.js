@@ -19,3 +19,19 @@ export async function saveDb(content) {
 export function getDb(content) {
 	return jsonDB;
 }
+
+export async function replaceDb(id, newContent) {
+	return new Promise( async (resolve, reject) => {
+		let indexOfActivity = getDb().data.findIndex((el) => {
+			return el.id === id;
+		})
+
+		if (indexOfActivity === -1) return reject("That ID does not exist in the DB");
+		
+		jsonDB.data[indexOfActivity] = newContent;
+		
+		let result = await fs.writeFile("./activities.json", JSON.stringify(jsonDB), "utf-8");
+
+		resolve(jsonDB.data[indexOfActivity]);
+	})
+}
