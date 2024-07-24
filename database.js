@@ -28,10 +28,16 @@ export async function replaceDb(id, newContent) {
 
 		if (indexOfActivity === -1) return reject("That ID does not exist in the DB");
 		
-		jsonDB.data[indexOfActivity] = newContent;
+		jsonDB.data[indexOfActivity] = {
+			...jsonDB.data[indexOfActivity],
+			activity_type: newContent.activity_type,
+			activity_duration: newContent.activity_duration
+		};
 		
 		let result = await fs.writeFile("./activities.json", JSON.stringify(jsonDB), "utf-8");
 
 		resolve(jsonDB.data[indexOfActivity]);
 	})
 }
+
+

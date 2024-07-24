@@ -1,6 +1,11 @@
 import express from "express";
 import helmet from "helmet";
-import { generateActivities, createNewActivity, getAllActivities} from "./activities.js";
+import {
+  generateActivities,
+  createNewActivity,
+  getAllActivities,
+} from "./activities.js";
+import { replaceDb } from "./database.js";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -38,25 +43,31 @@ app.post("/activities", async (req, res) => {
     res.status(201);
     res.json({
       success: true,
-      payload: await getAllActivities()}
-    )
+      payload: await getAllActivities(),
+    });
   } else {
     res.status(400);
     res.json({
       success: false,
-      payload: "Please provide activity_type and activity_duration"}
-    )
+      payload: "Please provide activity_type and activity_duration",
+    });
   }
 });
 
-
-
-app.put('/activities/:id',(req,res)=>{
-  if(req.params.id){
-    
+app.put("/activities/:id", async (req, res) => {
+  try {
+    let result = await replaceDb(req.params.id, req.body);
+    res.status(200);
+    res.json({
+      success: true,
+      payload: result,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(400);
+    res.json({
+      success: false,
+      payload: "Please give an appropriate id and body",
+    });
   }
-})
-
-
-
-
+});
