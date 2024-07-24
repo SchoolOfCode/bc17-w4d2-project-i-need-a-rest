@@ -22,6 +22,19 @@ export function generateActivities(amount = 1) {
 
 export function createNewActivity(activityType = "jog", activityDuration = "30") {
 	return new Promise((resolve) => {
-
+		resolve(saveDb({
+			id: crypto.randomUUID(),
+			activity_submitted: Date.now(),
+			activity_type: activityType,
+			activity_duration: activityDuration,
+		}));
 	});
+}
+
+// let result = await createNewActivity("walking", "59");
+
+export function getAllActivities() {
+	return new Promise((resolve) => {
+		resolve(getDb());
+	})
 }

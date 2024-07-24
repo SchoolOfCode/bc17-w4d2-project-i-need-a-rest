@@ -1,6 +1,6 @@
 import express from "express";
 import helmet from "helmet";
-import { generateActivities } from "./activities.js";
+import { generateActivities, createNewActivity, getAllActivities} from "./activities.js";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -14,6 +14,8 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use(express.json());
+
 app.get("/", (req, res) => {
   res.send("Hello World");
 });
@@ -21,10 +23,28 @@ app.get("/", (req, res) => {
 app.get("/activities", async (req, res) => {
   res.status(200);
   res.json({
-    data: await generateActivities(3),
+    success: true,
+    payload: await getAllActivities(3),
   });
 });
 
 app.listen(port, () => {
   console.log("Server up and running");
+});
+
+app.post("/activities", async (req, res) => {
+  if (req.body.activity_type && req.body.activity_duration) {
+    await createNewActivity(req.body.activity_type, req.body.activity_duration);
+    res.status(201);
+    res.json({
+      success: true,
+      payload: await getAllActivities()}
+    )
+  } else {
+    res.status(400);
+    res.json({
+      success: false,
+      payload: "Please provide activity_type and activity_duration"}
+    )
+  }
 });
