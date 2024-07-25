@@ -126,6 +126,8 @@ function deleteAuth(req, res, next) {
   if (req.headers.authorization === "Bearer TEST_TOKEN"){
     next();
   } else {
-    res.send(401, "Unauthorized");
-  }
-}
+    res.status(401).json({
+      success: false,
+      payload: "Unauthorized",
+    });
+}}
