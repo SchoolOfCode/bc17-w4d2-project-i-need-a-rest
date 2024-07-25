@@ -1,23 +1,23 @@
 import { json } from 'express';
 import * as fs from 'node:fs/promises';
 
-let jsonDB;
+let jsonDb;
 
 try {
-	jsonDB = JSON.parse(await fs.readFile("./activities.json", "utf-8"));
+	jsonDb = JSON.parse(await fs.readFile("./activities.json", "utf-8"));
 } catch(err) {
 	await fs.writeFile("./activities.json", JSON.stringify({ data: []}), "utf-8");
-	jsonDB = JSON.parse(await fs.readFile("./activities.json", "utf-8"));
+	jsonDb = JSON.parse(await fs.readFile("./activities.json", "utf-8"));
 }
 
 export async function saveDb(content) {
-	jsonDB.data.push(content);
-	let result = await fs.writeFile("./activities.json", JSON.stringify(jsonDB), "utf-8");
-	return jsonDB;
+	jsonDb.data.push(content);
+	let result = await fs.writeFile("./activities.json", JSON.stringify(jsonDb), "utf-8");
+	return jsonDb;
 }
 
 export function getDb(content) {
-	return jsonDB;
+	return jsonDb;
 }
 
 export async function replaceDb(id, newContent) {
@@ -28,16 +28,30 @@ export async function replaceDb(id, newContent) {
 
 		if (indexOfActivity === -1) return reject("That ID does not exist in the DB");
 		
-		jsonDB.data[indexOfActivity] = {
-			...jsonDB.data[indexOfActivity],
+		jsonDb.data[indexOfActivity] = {
+			...jsonDb.data[indexOfActivity],
 			activity_type: newContent.activity_type,
 			activity_duration: newContent.activity_duration
 		};
 		
-		let result = await fs.writeFile("./activities.json", JSON.stringify(jsonDB), "utf-8");
+		let result = await fs.writeFile("./activities.json", JSON.stringify(jsonDb), "utf-8");
 
-		resolve(jsonDB.data[indexOfActivity]);
+		resolve(jsonDb.data[indexOfActivity]);
 	})
 }
 
+export function deleteDb(id) {
+	return new Promise( async (resolve, reject) => {
+		let indexOfActivity = getDb().data.findIndex((el) => {
+			return el.id === id;
+		})
 
+		if (indexOfActivity === -1) return reject("That ID does not exist in the DB");
+
+		let deletedActivity = jsonDb.data.splice(indexOfActivity, 1);
+
+		let result = await fs.writeFile("./activities.json", JSON.stringify(jsonDb), "utf-8");
+
+		resolve(deletedActivity);
+	})
+}
