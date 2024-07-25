@@ -86,6 +86,7 @@ app.put(
 );
 
 app.delete("/activities/:id?", 
+deleteAuth,
 check("id").exists().notEmpty().withMessage("ID Parameter is required"),
 async (req, res) => {
   let err = validationResult(req);
@@ -120,3 +121,11 @@ app.get("/", (req, res) => {
 app.listen(port, () => {
   console.log("Server up and running");
 });
+
+function deleteAuth(req, res, next) {
+  if (req.headers.authorization === "Bearer TEST_TOKEN"){
+    next();
+  } else {
+    res.send(401, "Unauthorized");
+  }
+}
