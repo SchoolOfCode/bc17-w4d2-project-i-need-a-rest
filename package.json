@@ -12,6 +12,7 @@
   "type": "module",
   "dependencies": {
     "express": "^4.19.2",
+    "express-validator": "^7.1.0",
     "helmet": "^7.1.0"
   }
 }
