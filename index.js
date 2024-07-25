@@ -5,7 +5,7 @@ import {
   createNewActivity,
   getAllActivities,
 } from "./activities.js";
-import { replaceDb } from "./database.js";
+import { deleteDb, replaceDb } from "./database.js";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -71,3 +71,30 @@ app.put("/activities/:id", async (req, res) => {
     });
   }
 });
+
+
+
+
+app.delete("/activities/:id", async (req,res)=>{
+  try{
+    let deletedItem= await deleteDb(req.params.id)
+    res.status(200).json(
+      {
+        success: true,
+        payload: deletedItem,
+      }
+    )
+  }
+  catch (error){
+    res.status(400).json(
+      {
+        success: false,
+        payload: 'Please give an appropriate id',
+      }
+    )
+  }
+})
+
+
+
+

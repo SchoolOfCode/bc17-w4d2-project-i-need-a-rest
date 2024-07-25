@@ -40,7 +40,7 @@ export async function replaceDb(id, newContent) {
 	})
 }
 
-export function deleteDb(id) {
+export async function deleteDb(id) {
 	return new Promise( async (resolve, reject) => {
 		let indexOfActivity = getDb().data.findIndex((el) => {
 			return el.id === id;
