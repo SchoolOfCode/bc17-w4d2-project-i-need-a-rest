@@ -37,7 +37,7 @@ app.get("/activities", async (req, res) => {
   res.status(200);
   res.json({
     success: true,
-    payload: await getAllActivities(3),
+    payload: await getAllActivities(),
   });
 });
 
@@ -78,6 +78,7 @@ app.put(
   async (req, res) => {
     let checkedResult = validationResult(req);
     let data = matchedData(req);
+    console.log(checkedResult)
 
     if (checkedResult.isEmpty() && Object.keys(req.body).length !== 0) {
       let result = await replaceDb(data.id, req.body);
