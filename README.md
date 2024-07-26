@@ -76,6 +76,7 @@
 }
 ```
 
+---
 | POST | `localhost:3000/activities/` |
 |------|------------------------------|
 |`body.activity_type`| `cycling`           |
@@ -121,6 +122,7 @@
 }
 ```
 
+---
 | PUT | `localhost:3000/activities/6ad98827-13ca-4fd0-88ee-e387727ad623` |
 |------|------------------------------|
 |`body.activity_type`| `running`           |
@@ -137,6 +139,8 @@
     }
 }
 ```
+
+---
 | DELETE | `localhost:3000/activities/6ad98827-13ca-4fd0-88ee-e387727ad623` |
 |------|------------------------------|
 |`header.authorization`| `Bearer TEST_TOKEN`           |
