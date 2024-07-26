@@ -1,0 +1,13 @@
+- intros
+  - Faisal
+  - Hamsa
+  - Jocelyne
+- planning - Jocelyne
+- demo - Jocelyne
+  - use postman and readme
+- code - Hamsa
+- express-validator - Faisal
+- reflections
+  - Faisal
+  - Hamsa
+  - Jocelyne
