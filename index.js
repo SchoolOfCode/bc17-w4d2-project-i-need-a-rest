@@ -124,7 +124,7 @@ app.get("/activities", async (req, res) => {
   res.status(200);
   res.json({
     success: true,
-    payload: await getAllActivities(3),
+    payload: await getAllActivities(),
   });
 });
 
